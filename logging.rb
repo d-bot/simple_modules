@@ -1,3 +1,4 @@
+require 'singleton'
 module Logging
 
 	def info(msg)
@@ -10,19 +11,17 @@ module Logging
 		return Logger.instance.out(msg, "ERROR")
 	end
 
-	require 'singleton'
-  class Logger
-    include Singleton
+	class Logger
+		include Singleton
 
-    def initialize
-      @log = File.open("LOG_PATH", "a")
-    end
+		def initialize
+			@log = File.open("LOG_PATH", "a")
+		end
 
-    def out(msg, level)
+		def out(msg, level)
 			@log.puts("#{level[0]}, [#{Time.now}]  #{level} -- : #{msg}")
 			@log.flush
-    end
+		end
 
-  end
-
+	end
 end
